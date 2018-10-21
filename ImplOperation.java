@@ -48,7 +48,8 @@ public class ImplOperation  {
 	    		name=scanner.nextLine();
 	    		System.err.println("enter the age");
 	    		age=scanner.nextInt();
-	    	try {	stmt=connection.prepareStatement("select max(Id) from student " );
+	    	try {
+	    		stmt=connection.prepareStatement("select max(Id) from student " );
 	    		ResultSet rs=stmt.executeQuery();
 	    		if(rs.next()) {
 	    			id=rs.getInt(1)+1;
@@ -56,6 +57,7 @@ public class ImplOperation  {
 	    	}catch(SQLException e) {
 	    		e.printStackTrace();
 	    	}
+	    	
 		try{
 			stmt=connection.prepareStatement("insert into student (id ,name,age)values (?,?,?)");
 		
@@ -133,17 +135,25 @@ public class ImplOperation  {
 	
 	public boolean updateById(int id) {
 		// TODO Auto-generated method stub
-		String name =null;
-		int age =0;
-		try{
-			connection.createStatement();
-			 stmt.setString(1,name);  
-			//.executeUpdate
-			return true ;
-				}catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		String name ="purushottam";
+		int age =32;
+		System.out.println("enter the name ");
+		name=scanner.nextLine();
+		System.err.println("enter the age");
+		age=scanner.nextInt();
+	 	
+			try{
+				
+				stmt=connection.prepareStatement("update  student set name=? ,age=? where id =?");
+			
+			//stmt.setInt(1, id);
+			stmt.setString(1, name);
+			stmt.setInt(2, age);
+			stmt.setInt(3, id);
+			stmt.executeUpdate();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
 		return false;
 	}//method end 
 
