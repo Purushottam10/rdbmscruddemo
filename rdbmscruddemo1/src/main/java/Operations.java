@@ -1,31 +1,21 @@
+import com.dz.com.dz.DBOperation;
+import com.dz.config.DBConfig;
 import com.dz.model.Student;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.List;
 
 public class Operations {
         private Connection connection=null;
         private  PreparedStatement statement=null;
         private BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        private Student student;
+        private Student student=new Student();
         private   ResultSet rs=null;
-              Operations(){
+        private DBConfig dbConfig;
+        private DBOperation dbOperation;
 
-                       try {
-                             Class.forName("com.mysql.jdbc.Driver");
-                            } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                              }
-
-                          try {
-                           connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useSSL=false",
-                                   "system", "admin123");
-                             //statement = connection.createStatement();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                           }
-                       }//constructor end
     /**
      *
      * @return true if data inserted
@@ -35,6 +25,9 @@ public class Operations {
 
     public boolean addStudent() throws  IOException {
         // TODO Auto-generated method stub
+        dbConfig =new DBConfig();
+
+        connection=dbConfig.getConnection();
         int id=0;
         int count=0;
         String name=null;
@@ -47,36 +40,25 @@ public class Operations {
         }catch (NumberFormatException e)
         {
             e.printStackTrace();
+
         }
-          try{
-              statement=connection.prepareStatement("select max(Id) from student " );
-            ResultSet rs=statement.executeQuery();
-            if(rs.next()) {
-                id=rs.getInt(1)+1;
+        try {
+            statement = connection.prepareStatement("select max(Id) from student ");
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1) + 1;
             }
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        if(age==0){
-            return false;
-        }
-
-        try{
-            statement=connection.prepareStatement("insert into student (id ,name,age)values (?,?,?)");
-
-            statement.setInt(1, id);
-            statement.setString(2, name);
-            statement.setInt(3, age);
-          count=  statement.executeUpdate();
-           // System.out.println("data inserted successfully");
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        if(count>0){
-            return true;
-        }
-        return false;
+        student.setRoll_no(id);
+        student.setStudentName(name);
+        student.setAge(age);
+          boolean status= dbOperation.addstudent( connection,student);
+          if(status){
+              return true;
+          }
+             return false;
     }//method end
 
     /**
@@ -84,19 +66,20 @@ public class Operations {
      */
     public void display() {
         // TODO Auto-generated method stub
-        try{
-            statement= connection.prepareStatement("select * from student") ;
-            rs=statement.executeQuery();
+        dbConfig=new DBConfig();
+        connection =dbConfig.getConnection();
+        dbOperation=new DBOperation();
 
-            while(rs.next())  {
-                System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getInt(3));
-            }
+        List<Student> studentList=dbOperation.display(connection);
+try {
 
-        }catch (SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
+        for(Student cursor:studentList){
 
+        System.out.println(cursor.toString());
+    }
+}catch (NullPointerException e){
+    e.printStackTrace();
+}
     }//method end
 
     /**
@@ -165,10 +148,13 @@ public class Operations {
      * @param id
      * @return
      */
-    public boolean updateById(int id) {
+    public boolean updateById(int id) throws  IOException {
         // TODO Auto-generated method stub
-        String name ="purushottam";
-        int age =32;
+        dbConfig=new DBConfig();
+        connection =dbConfig.getConnection();
+        System.out.println(connection);
+        String name =null;
+        int age =0;
         int count=0;
         System.out.println("enter the name ");
         try {
@@ -177,8 +163,11 @@ public class Operations {
             System.err.println("enter the age");
             age = Integer.parseInt(bufferedReader.readLine());
         }
-        catch (IOException e){
+        catch (NumberFormatException e){
             e.printStackTrace();
+        }
+        if(age==0||name.equals(null)){
+            return false;
         }
         try{
 

@@ -1,4 +1,3 @@
-import javax.imageio.IIOException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -72,7 +71,7 @@ public class Main {
                    System.out.println("data upadted");
                }
                else{
-                   System.out.println("no roll NO found in table to add new press 1" +
+                   System.out.println("data not updated " +
                            "");
                }
             }
