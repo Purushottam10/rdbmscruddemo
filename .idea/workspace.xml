@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7d8f0c47-f183-4bc5-9364-3a116c45e985" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/Operations.java" beforeDir="false" afterPath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/StudentServiceR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/com/dz/DBOperation.java" beforeDir="false" afterPath="$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/DBOperation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/target/classes/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/target/classes/Operations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rdbmscruddemo1/target/classes/com/dz/com/dz/DBOperation.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/rdbmscruddemo1/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -88,7 +82,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/StudentServiceR.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="-915">
               <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -187,7 +181,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540364975893" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540365798401" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -241,7 +235,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="7" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.21707901" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -349,7 +343,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rdbmscruddemo1/src/main/java/com/dz/StudentServiceR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="-915">
           <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
