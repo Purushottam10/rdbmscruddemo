@@ -1,4 +1,4 @@
-package com.dz;
+package com.dz.dao;
 
 import com.dz.config.DBConfig;
 import com.dz.model.Student;
@@ -18,18 +18,21 @@ public class DBOperation {
     private DBConfig dbConfig;
     private PreparedStatement statement=null;
 
-    public boolean addstudent(Connection connection ,Student student) {
+    public boolean addstudent(Student student) {
 
-        int id =0;
+        dbConfig=new DBConfig();
+        Connection connection= dbConfig.getConnection();
+
         int count =0;
 
         if (student.getAge() == 0) {
             return false;
         }
+
         try{
             statement=connection.prepareStatement("insert into student (id ,name,age)values (?,?,?)");
 
-            statement.setInt(1, id);
+            statement.setInt(1, student.getRoll_no());
             statement.setString(2, student.getStudentName());
             statement.setInt(3, student.getAge());
             count=  statement.executeUpdate();
@@ -58,7 +61,7 @@ public class DBOperation {
         List<Student> studentList=new ArrayList();
         try{
             statement= connection.prepareStatement("select * from student") ;
-         ResultSet   rs=statement.executeQuery();
+            ResultSet   rs=statement.executeQuery();
 
             while (rs.next())  {
                 student =new Student();
@@ -108,6 +111,15 @@ public class DBOperation {
 
         return false;
     }//method end
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @param age
+     * @return
+     * @throws IOException
+     */
     public boolean updateById(int id,String name ,int age) throws IOException {
         // TODO Auto-generated method stub
         dbConfig=new DBConfig();

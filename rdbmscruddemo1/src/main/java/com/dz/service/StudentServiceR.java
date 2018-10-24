@@ -1,7 +1,7 @@
-package com.dz;
+package com.dz.service;
 
-import com.dz.DBOperation;
 import com.dz.config.DBConfig;
+import com.dz.dao.DBOperation;
 import com.dz.model.Student;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +13,7 @@ public class StudentServiceR {
         private Connection connection=null;
         private  PreparedStatement statement=null;
         private BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        private Student student=new Student();
-        private   ResultSet rs=null;
+        private Student student;
         private DBConfig dbConfig;
         private DBOperation dbOperation;
 
@@ -22,17 +21,18 @@ public class StudentServiceR {
      *
      * @return true if data inserted
      * to add data in the data base
-     * @throws SQLException
+     * @throws IOException
      */
 
 
     public boolean addStudent() throws  IOException {
         // TODO Auto-generated method stub
+        student=new Student();
         dbConfig =new DBConfig();
-
+        boolean status=false;
         connection=dbConfig.getConnection();
         int id=0;
-        int count=0;
+         dbOperation =new DBOperation();
         String name=null;
         int age=0;
         try {
@@ -49,15 +49,21 @@ public class StudentServiceR {
             statement = connection.prepareStatement("select max(Id) from student ");
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                id = rs.getInt(1) + 1;
+                student.setRoll_no( rs.getInt(1) + 1);
+                System.out.println(rs.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        student.setRoll_no(id);
+     //   student.setRoll_no(id);
         student.setStudentName(name);
         student.setAge(age);
-          boolean status= dbOperation.addstudent( connection,student);
+         try{
+
+           status = dbOperation.addstudent( student);
+         }catch (NullPointerException e){
+             e.printStackTrace();
+         }
           if(status){
               return true;
           }
@@ -90,7 +96,7 @@ try {
      * @param id
      * @return
      */
-    public void displayById(int id ) {
+    public boolean displayById(int id ) {
         // TODO Auto-generated method stub
         dbOperation=new DBOperation();
 
@@ -99,10 +105,11 @@ try {
         for(Student stu:studentList){
             if(stu.getRoll_no()==id){
                 System.out.println(stu.toString());
+                return  true;
             }
         }
 
-
+ return false ;
     }//method end
 
     /**

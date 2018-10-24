@@ -1,13 +1,15 @@
 package com.dz;
 
+import com.dz.service.StudentServiceR;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 /**
- * com.dz.Main class used for calling
+ * com.dz.Application class used for calling
  * contains main Method
  */
-public class Main {
+public class Application {
 
     public static  void main(String []args ) throws IOException {
 
@@ -47,7 +49,9 @@ public class Main {
                 }catch (NumberFormatException ex){
                     ex.printStackTrace();
                 }
-                operations.displayById(roll_no);
+                if(!operations.displayById(roll_no)){
+                    System.out.println("Data not found ");
+                }
             }
 
             else if(choice==4){
@@ -69,6 +73,6 @@ public class Main {
         }
         while (true);
 
-    }//method
+    }//method end
 
 }//class end
