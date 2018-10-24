@@ -1,4 +1,6 @@
-import com.dz.com.dz.DBOperation;
+package com.dz;
+
+import com.dz.DBOperation;
 import com.dz.config.DBConfig;
 import com.dz.model.Student;
 import java.io.BufferedReader;
@@ -7,7 +9,7 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.List;
 
-public class Operations {
+public class StudentServiceR {
         private Connection connection=null;
         private  PreparedStatement statement=null;
         private BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +24,7 @@ public class Operations {
      * to add data in the data base
      * @throws SQLException
      */
+
 
     public boolean addStudent() throws  IOException {
         // TODO Auto-generated method stub
@@ -66,11 +69,11 @@ public class Operations {
      */
     public void display() {
         // TODO Auto-generated method stub
-        dbConfig=new DBConfig();
-        connection =dbConfig.getConnection();
+
         dbOperation=new DBOperation();
 
-        List<Student> studentList=dbOperation.display(connection);
+       // dbOperation.display();
+     List<Student>  studentList=dbOperation.display();
 try {
 
         for(Student cursor:studentList){
@@ -89,73 +92,63 @@ try {
      */
     public void displayById(int id ) {
         // TODO Auto-generated method stub
+        dbOperation=new DBOperation();
 
-        try {
-           statement= connection.prepareStatement("select * from student where Id =?");
-               statement.setInt(1, id);
-            rs = statement.executeQuery();
-
-            if (rs.first()) {
-
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getInt(3));
-            } else {
-                System.out.println("no Id matched in Data Base ");
+        // dbOperation.display();
+        List<Student>  studentList=dbOperation.display();
+        for(Student stu:studentList){
+            if(stu.getRoll_no()==id){
+                System.out.println(stu.toString());
             }
         }
-        catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        catch (SQLException  e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
+
 
     }//method end
 
     /**
      *
-     * @param id
+     * @param
      * @return
      */
 
-    public boolean removeById(int id) {
+    public void  removeById() throws  IOException {
         // TODO Auto-generated method stub
-       int count =0;
+       int roll_no =0;
+        dbOperation=new DBOperation();
 
+        System.out.println("enter the student Roll No");
         try{
-            statement=connection.prepareStatement("delete from  student  where id= ?");
-            statement.setInt(1,id);
-            count= statement.executeUpdate();
-
-        }catch (SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            roll_no=Integer.parseInt(bufferedReader.readLine());
+               }catch (NumberFormatException ex){
+               ex.printStackTrace();
+           }
+        if( dbOperation.removeById(roll_no)){
+            System.out.println("data Removed to Table");
         }
-        catch(NullPointerException e){
-            System.out.println("problem");
-            e.printStackTrace();
+        else System.out.println("not such id Found in table ");
 
-        }
-        if(count>0){
-            return true;
-        }
-
-        return false;
     }//method end
 
     /**
      * \
-     * @param id
+     *
      * @return
      */
-    public boolean updateById(int id) throws  IOException {
+    public void updateById() throws  IOException {
         // TODO Auto-generated method stub
+        dbOperation=new DBOperation();
         dbConfig=new DBConfig();
         connection =dbConfig.getConnection();
         System.out.println(connection);
         String name =null;
         int age =0;
-        int count=0;
+        int roll_no=0;
+        try{
+            roll_no=Integer.parseInt(bufferedReader.readLine());
+        }catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
+
         System.out.println("enter the name ");
         try {
             name = bufferedReader.readLine();
@@ -166,24 +159,12 @@ try {
         catch (NumberFormatException e){
             e.printStackTrace();
         }
-        if(age==0||name.equals(null)){
-            return false;
-        }
-        try{
-
-            statement=connection.prepareStatement("update  student set name=? ,age=? where id =?");
-
-            statement.setString(1, name);
-            statement.setInt(2, age);
-            statement.setInt(3, id);
-          count=  statement.executeUpdate();
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        if(count>0){
-            return true ;
-        }
-        return false;
+       if( dbOperation.updateById(roll_no,name,age)){
+           System.out.println("data upadted");
+       }
+       else {
+           System.out.println("not updated ");
+       }
     }//method end
 
 }//end class

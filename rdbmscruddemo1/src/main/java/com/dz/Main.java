@@ -1,15 +1,17 @@
+package com.dz;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 /**
- * Main class used for calling
+ * com.dz.Main class used for calling
  * contains main Method
  */
 public class Main {
 
     public static  void main(String []args ) throws IOException {
 
-        Operations operations=new Operations();
+        StudentServiceR operations=new StudentServiceR();
 
         int choice = 0;
         int roll_no=1;
@@ -49,40 +51,24 @@ public class Main {
             }
 
             else if(choice==4){
-                System.out.println("enter the student Roll No");
-                try{
-                    roll_no=Integer.parseInt(bufferedReader.readLine());
-                }catch (NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-               if( operations.removeById(roll_no)){
-                   System.out.println("data Removed to Table");
-               }
-               else System.out.println("not such id Found in table ");
+              operations.removeById();
             }
             else if(choice==5){
                 System.out.println("enter the student Roll No");
-                try{
-                    roll_no=Integer.parseInt(bufferedReader.readLine());
-                }catch (NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-               if(operations.updateById(roll_no)){
-                   System.out.println("data upadted");
-               }
-               else{
-                   System.out.println("data not updated " +
-                           "");
-               }
+
+               operations.updateById();
             }
-            else if(choice==6){
+               else if(choice==6){
                 System.out.println("");
                 System.exit(0);
 
             }
+            else {
+                System.out.println("Bad Choice ");
+            }
         }
         while (true);
 
-    }
+    }//method
 
 }//class end
