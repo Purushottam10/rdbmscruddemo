@@ -14,7 +14,7 @@ import java.util.List;
 
 
 
-public class DBOperation {
+public class ImplStudentDao implements StudentDao{
     private DBConfig dbConfig;
     private PreparedStatement statement=null;
 
@@ -120,7 +120,7 @@ public class DBOperation {
      * @return
      * @throws IOException
      */
-    public boolean updateById(int id,String name ,int age) throws IOException {
+    public boolean updateById(int id,String name ,int age) {
         // TODO Auto-generated method stub
         dbConfig=new DBConfig();
         Connection connection= dbConfig.getConnection();

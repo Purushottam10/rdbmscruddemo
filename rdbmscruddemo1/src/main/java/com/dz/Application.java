@@ -1,6 +1,6 @@
 package com.dz;
 
-import com.dz.service.StudentServiceR;
+import com.dz.service.ImplStudentServiceR;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class Application {
 
     public static  void main(String []args ) throws IOException {
 
-        StudentServiceR operations=new StudentServiceR();
+        ImplStudentServiceR operations=new ImplStudentServiceR();
 
         int choice = 0;
         int roll_no=1;
